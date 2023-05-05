@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+.idea/
+**/__pycache__/
+venv
+old
+*.log
+cookie.json
+.vscode
+cookie.json
+TODO.md
+test.py
+text.py
+**.egg-info/
+.env
+VERSIONING.md
