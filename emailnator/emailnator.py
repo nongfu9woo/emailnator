@@ -1,4 +1,5 @@
 import os
+import random
 from dotenv import load_dotenv, set_key
 from urllib.parse import unquote
 import requests
@@ -110,12 +111,22 @@ class Emailnator:
             raise EmailnatorError(f"Error: {response.status_code}: {response.text}")
         return response.json()
 
-    def generate_email(self, options=["dotGmail"]):
+    def generate_email(self, options=None):
         """
         Generate Email
         
         options (Array): ["domain", "plusGmail", "dotGmail"]
         """
+        
+        valid_options = ["domain", "plusGmail", "dotGmail"]
+        
+        if options is None:
+            options = [random.choice(valid_options)]
+        else:
+            if not all(option in valid_options for option in options):
+                raise EmailnatorError("Invalid input: options should be a list containing valid option strings.")
+
+
         url = f"{self.base_url}/generate-email"
         payload = {"email": options}
         response = requests.post(url, json=payload, headers=self.headers)
@@ -129,25 +140,35 @@ class Emailnator:
     def inbox(self, email):
         """
         Retrieve Inbox
-        
+
         email: Email address
         """
+        if not isinstance(email, str):
+            raise EmailnatorError("Invalid input: email should be a string.")
+
         url = f"{self.base_url}/message-list"
-        payload = { "email": email }
+        payload = {"email": email}
         response = requests.post(url, json=payload, headers=self.headers)
         return self._handle_response(response)
 
     def get_message(self, email, message_id):
         """
         Get Message
-        
+
         email: Email address
         message_id: Message ID
         """
+        if not isinstance(email, str):
+            raise EmailnatorError("Invalid input: email should be a string.")
+
+        if not isinstance(message_id, str):
+            raise EmailnatorError("Invalid input: message_id should be a string.")
+
         url = f"{self.base_url}/message-list"
         payload = {"email": email, "messageID": message_id}
         response = requests.post(url, json=payload, headers=self.headers)
         return response.text
+
     
     def get_existing_email(self):
         """
