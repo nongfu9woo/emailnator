@@ -141,6 +141,11 @@ message_id = emails["messageData"][1]["messageID"]
 # Get the email message id contents
 email_content = emailnator.get_message(email, message_id)
 
+# 获取poe的验证码
+email_content = emailnator.get_message(email, message_id)
+matches = findall(r"(\d{6,7})</div>", email_content)
+print(matches)  #  ['977593']
+
 ```
 
 ## License
