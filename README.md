@@ -126,18 +126,16 @@ from emailnator import Emailnator
 emailnator = Emailnator()
 
 # Generate an email
-email_data = emailnator.generate_email()
-email = email_data["email"][0]
-
+email_data = emailnator.generate_email() # {'email': ['sa.m.u.e.lerutt.er414@gmail.com']}
+email = email_data["email"][0] # sa.m.u.e.lerutt.er414@gmail.com
+# sleep(15)
 # Get existing email if generated before.
-email = emailnator.get_existing_email()
-
+email = emailnator.get_existing_email() # sa.m.u.e.lerutt.er414@gmail.com
 # Get email inbox of email
-emails = emailnator.inbox(email)
-
+emails = emailnator.inbox(email) # {'messageData': [{'messageID': 'ADSVPN', 'from': 'AI TOOLS', 'subject': 'Unleash the power of AI with our ultimate directory of online tools!', 'time': 'Just Now'}, {'messageID': 'MTg4MGVlZmQ2NTVlNzdmNQ==', 'from': 'Poe <noreply@poe.com>', 'subject': 'Your verification code', 'time': 'Just Now'}]}
 # Select a specific email message id
 message_id = emails["messageData"][1]["messageID"]
-    
+
 # Get the email message id contents
 email_content = emailnator.get_message(email, message_id)
 
